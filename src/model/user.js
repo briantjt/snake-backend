@@ -2,6 +2,7 @@ const mongoose = require("mongoose");
 const uniqueValidator = require("mongoose-unique-validator");
 const crypto = require("crypto");
 const jwt = require("jsonwebtoken");
+const { secret } = require("../../config/jwt");
 
 const validateEmail = email => /\w+@\w+\.\w+/.test(email);
 
@@ -29,7 +30,9 @@ function generateSalt() {
 }
 
 function hashPassword(password, salt) {
-  return crypto.pbkdf2Sync(password, salt, 10000, 512, "sha512").toString("hex");
+  return crypto
+    .pbkdf2Sync(password, salt, 10000, 512, "sha512")
+    .toString("hex");
 }
 
 userSchema.methods.setPassword = function(password) {
@@ -38,8 +41,31 @@ userSchema.methods.setPassword = function(password) {
 };
 
 userSchema.methods.validPassword = function(password) {
-  return this.passwordHash === hashPassword(password, this.passwordSalt)
-}
+  return this.passwordHash === hashPassword(password, this.passwordSalt);
+};
+
+userSchema.methods.generateJWT = function() {
+  const today = new Date();
+  const exp = new Date(today);
+  const expiry = exp.setDate(today.getDate() + 60) / 1000;
+  return jwt.sign(
+    {
+      userid: this._id,
+      username: this.username,
+      exp: expiry
+    },
+    secret
+  );
+};
+
+userSchema.methods.verifyJWT = function(token) {
+  try {
+    jwt.verify(token, secret);
+    return true;
+  } catch (error) {
+    return false;
+  }
+};
 
 userSchema.plugin(uniqueValidator, { message: "Should be unique" });
 

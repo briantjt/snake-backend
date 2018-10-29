@@ -159,3 +159,22 @@ describe("Setting and validation of password field on User model", () => {
     expect(user.validPassword(password)).toBeTruthy();
   });
 });
+
+describe("JWT Tokens", () => {
+  const username = "jeff";
+  const email = "jeff@example.com";
+  const user = new User({ username, email });
+
+  beforeEach(async () => {
+    await user.save();
+  });
+
+  test("JWT Tokens can be generated and verified", () => {
+    const token = user.generateJWT();
+    expect(user.verifyJWT(token)).toBeTruthy();
+  });
+
+  test("invalid JWT tokens are rejected", () => {
+    expect(user.verifyJWT("garbage token")).toBeFalsy();
+  });
+});
