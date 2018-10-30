@@ -1,7 +1,7 @@
 const express = require("express"),
   router = express.Router(),
   handleAsyncError = require("express-async-wrap"),
-  userHandler = require("../handler/user_handler"),
+  userHandler = require("../handlers/user_handler"),
   passport = require("passport");
 
 router.post("/signup", handleAsyncError(userHandler.registerNewUser));

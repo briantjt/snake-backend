@@ -6,8 +6,8 @@ const express = require("express"),
   status = require("http-status"),
   morgan = require("morgan"),
   cookieParser = require("cookie-parser"),
-  mongoose = require("mongoose");
-
+  mongoose = require("mongoose"),
+  logger = require("./logger")
 const { passport } = require("./middleware/passport_middleware");
 
 const isProduction = process.env.NODE_ENV === "production";
@@ -32,9 +32,9 @@ if (process.env.NODE_ENV !== "production") {
 
 //routes
 const userRouter = require("./routes/user_api");
-const leaderboardRouter = require("./routes/leaderboard");
+// const leaderboardRouter = require("./routes/leaderboard");
 app.use("/api/user", userRouter);
-app.use("/leaderboard", leaderboardRouter);
+// app.use("/leaderboard", leaderboardRouter);
 
 //error handling
 if (!isProduction) {

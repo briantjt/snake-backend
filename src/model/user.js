@@ -22,6 +22,8 @@ const userSchema = new mongoose.Schema({
     unique: true,
     validate: [validateEmail, "Invalid email provided"]
   },
+  passwordHash: String,
+  passwordSalt: String,
   score: [Number]
 });
 
