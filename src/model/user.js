@@ -24,7 +24,7 @@ const userSchema = new mongoose.Schema({
   },
   passwordHash: String,
   passwordSalt: String,
-  score: [Number]
+  score: [{score: Number, date: Date}]
 });
 
 function generateSalt() {
@@ -69,6 +69,15 @@ userSchema.methods.verifyJWT = function(token) {
   }
 };
 
+userSchema.methods.updateScore = function(score) {
+  const currentTime = new Date();
+  if (this.score.length <= 10) {
+    this.score.push({score: score, date: currentTime })
+  } else {
+    this.score.shift()
+    this.score.push({score: score, date: currentTime })
+  }
+}
 userSchema.plugin(uniqueValidator, { message: "Should be unique" });
 
 module.exports = mongoose.model("User", userSchema);

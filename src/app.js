@@ -7,7 +7,8 @@ const express = require("express"),
   morgan = require("morgan"),
   cookieParser = require("cookie-parser"),
   mongoose = require("mongoose"),
-  logger = require("./logger")
+  logger = require("./logger"),
+  Leaderboard = require("./model/score");
 const { passport } = require("./middleware/passport_middleware");
 
 const isProduction = process.env.NODE_ENV === "production";

@@ -54,5 +54,6 @@ module.exports = {
   registerNewUser,
   login,
   changePassword,
-  logout
+  logout,
+  scoreHandler
 };

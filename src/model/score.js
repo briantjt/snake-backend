@@ -1,8 +1,9 @@
 const mongoose = require("mongoose");
 
-const scoreSchema = new mongoose.Schema({
+const ScoreSchema = new mongoose.Schema({
   score: Number,
-  username: { type: mongoose.Schema.Types.ObjectId, required: true }
+  user: { type: mongoose.Schema.Types.ObjectId, required: true }
 });
 
-module.exports = mongoose.model("Score", scoreSchema);
+ScoreSchema.index({ score: -1, user: 1 }, { unique: true });
+module.exports = mongoose.model("Score", ScoreSchema);
