@@ -33,9 +33,7 @@ if (process.env.NODE_ENV !== "production") {
 
 //routes
 const userRouter = require("./routes/user_api");
-// const leaderboardRouter = require("./routes/leaderboard");
 app.use("/api/user", userRouter);
-// app.use("/leaderboard", leaderboardRouter);
 
 //error handling
 if (!isProduction) {

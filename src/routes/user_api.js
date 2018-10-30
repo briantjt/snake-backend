@@ -12,10 +12,5 @@ router.put(
   handleAsyncError(userHandler.changePassword)
 );
 router.post("/logout", handleAsyncError(userHandler.logout));
-router.put(
-  "/new_score",
-  passport.authenticate("jwt", { session: false }),
-  handleAsyncError(userHandler.scoreHandler)
-);
 
 module.exports = router;

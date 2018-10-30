@@ -25,11 +25,13 @@ test("should clear cookie on logout", async () => {
   await loginAsTom(fixtures.users.tom.password, agent);
 
   let logoutResponse = await agent.post("/api/user/logout").send();
+  // @ts-ignore
   expect(logoutResponse.statusCode).toBe(status.OK);
   const newPassword = "new-password";
   const updatedUser = { password: newPassword };
   let changePwdRes = await agent
     .put("/api/user/change_password")
     .send({ user: updatedUser });
+  // @ts-ignore
   expect(changePwdRes.statusCode).toBe(status.UNAUTHORIZED);
 });

@@ -55,5 +55,4 @@ module.exports = {
   login,
   changePassword,
   logout,
-  scoreHandler
 };

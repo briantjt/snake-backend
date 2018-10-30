@@ -19,6 +19,7 @@ describe("New user signup", () => {
       .send({ user: { username, email, password } });
     let userJson = response.body.user;
 
+    // @ts-ignore
     expect(response.statusCode).toBe(status.OK);
     expect(userJson).toBeDefined();
     expect(userJson.username).toEqual(username);

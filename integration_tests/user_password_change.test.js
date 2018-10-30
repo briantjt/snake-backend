@@ -32,6 +32,7 @@ describe("Password Change", () => {
       .put("/api/user/change_password")
       .send({ user: updatedUser })
 
+    // @ts-ignore
     expect(response.statusCode).toBe(status.OK);
     const agent2 = request(app);
     await loginAsTom(newPassword, agent2);

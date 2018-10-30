@@ -20,10 +20,12 @@ describe("User authentication", () => {
       .send({ user: { email, password } });
 
     let userJson = response.body.user;
+    // @ts-ignore
     expect(response.statusCode).toBe(status.OK);
     expect(userJson).toBeDefined();
     expect(userJson.email).toBe(email);
     const jwtCookie = [expect.stringMatching(/jwt/)];
+    // @ts-ignore
     expect(response.headers["set-cookie"]).toEqual(
       expect.arrayContaining(jwtCookie)
     );
@@ -36,6 +38,7 @@ describe("User authentication", () => {
       .post("/api/user/login")
       .send({ user: { email, password } });
 
+    // @ts-ignore
     expect(response.statusCode).toBe(status.UNAUTHORIZED);
     expect(response.body.error.message).toBe("email or password is invalid");
   });
@@ -47,6 +50,7 @@ describe("User authentication", () => {
       .post("/api/user/login")
       .send({ user: { email, password } });
 
+    // @ts-ignore
     expect(response.statusCode).toBe(status.UNAUTHORIZED);
     expect(response.body.error.message).toBe("email or password is invalid");
   });
