@@ -30,10 +30,13 @@ app.use(cookieParser());
 if (process.env.NODE_ENV !== "production") {
   app.use(errorhandler());
 }
+app.use(passport.initialize());
 
 //routes
 const userRouter = require("./routes/user_api");
+const scoreRouter = require("./routes/score_api");
 app.use("/api/user", userRouter);
+app.use("/api/score", scoreRouter);
 
 //error handling
 if (!isProduction) {

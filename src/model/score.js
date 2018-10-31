@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 const ScoreSchema = new mongoose.Schema({
   score: Number,
-  user: { type: mongoose.Schema.Types.ObjectId, required: true }
+  user: { type: mongoose.Schema.Types.ObjectId, required: true, ref: "User" }
 });
 
 ScoreSchema.index({ score: -1, user: 1 }, { unique: true });
