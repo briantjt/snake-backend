@@ -7,7 +7,7 @@ const express = require("express"),
   morgan = require("morgan"),
   cookieParser = require("cookie-parser"),
   mongoose = require("mongoose"),
-  logger = require("./logger"),
+  logger = require("./logger");
 const { passport } = require("./middleware/passport_middleware");
 
 const isProduction = process.env.NODE_ENV === "production";
@@ -15,11 +15,14 @@ const isProduction = process.env.NODE_ENV === "production";
 const isMongooseConnectionProvided = process.env.NODE_ENV === "integration";
 
 if (!isMongooseConnectionProvided) {
-  mongoose.connect(process.env.MONGODB_URI, {useNewUrlParser: true});
+  mongoose.connect(
+    process.env.MONGODB_URI,
+    { useNewUrlParser: true }
+  );
 }
 
 const corsOptions = {
-  origin: [ "http://localhost:3000", "https://react-snake-124135.herokuapp.com"],
+  origin: ["http://localhost:3000", "https://react-snake-124135.herokuapp.com"],
   credentials: true
 };
 const corsMiddleware = cors(corsOptions);
