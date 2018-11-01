@@ -19,10 +19,15 @@ if (!isMongooseConnectionProvided) {
   mongoose.connect(process.env.MONGODB_URI);
 }
 
+const corsOptions = {
+  origin: "http://localhost:3000",
+  credentials: true
+};
+const corsMiddleware = cors(corsOptions)
 const app = express();
 
 //middleware stack
-app.use(cors());
+app.use(corsMiddleware);
 app.use(morgan("dev"));
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
@@ -35,6 +40,7 @@ app.use(passport.initialize());
 //routes
 const userRouter = require("./routes/user_api");
 const scoreRouter = require("./routes/score_api");
+app.options('*', corsMiddleware)
 app.use("/api/user", userRouter);
 app.use("/api/score", scoreRouter);
 

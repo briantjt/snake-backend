@@ -8,13 +8,13 @@ async function registerNewUser(req, res) {
   user.setPassword(req.body.user.password);
 
   await user.save();
-  return res.json({ user: { username: user.username, email: user.email } });
+  return res.status(201).json({ user: { username: user.username, email: user.email } });
 }
 
 async function login(req, res) {
-  const email = req.body.user.email;
+  const username = req.body.user.username;
   const password = req.body.user.password;
-  let user = await User.findOne({ email: email });
+  let user = await User.findOne({ username: username });
   if (!user || !user.validPassword(password)) {
     return res.status(status.UNAUTHORIZED).json({
       error: { message: "email or password is invalid" }
@@ -27,7 +27,7 @@ async function login(req, res) {
     sameSite: true
   });
 
-  return res.json({
+  return res.status(status.ACCEPTED).json({
     user: { username: user.username, email: user.email, token: token }
   });
 }
