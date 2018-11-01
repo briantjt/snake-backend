@@ -12,4 +12,9 @@ router.post(
 
 router.get("/leaderboard", handleAsyncError(scoreHandler.getLeaderboard));
 
-module.exports = router
+router.get(
+  "/high_score",
+  passport.authenticate("jwt", { session: false }),
+  handleAsyncError(scoreHandler.getHighScore)
+);
+module.exports = router;

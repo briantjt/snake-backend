@@ -12,4 +12,9 @@ async function getLeaderboard(req, res) {
     .sort({ score: -1 });
   res.json(top10);
 }
-module.exports = { newScore, getLeaderboard };
+
+async function getHighScore(req, res) {
+  let highScore = await Score.findOne({user: req.user._id}).sort({score: -1})
+  res.json(highScore)
+}
+module.exports = { newScore, getLeaderboard, getHighScore };

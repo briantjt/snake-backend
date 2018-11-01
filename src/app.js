@@ -20,10 +20,10 @@ if (!isMongooseConnectionProvided) {
 }
 
 const corsOptions = {
-  origin: "http://localhost:3000",
+  origin: [/http:\/\/localhost:.*/, /http[s]*:\/\/.*\.herokuapp.com/],
   credentials: true
 };
-const corsMiddleware = cors(corsOptions)
+const corsMiddleware = cors(corsOptions);
 const app = express();
 
 //middleware stack
@@ -40,7 +40,7 @@ app.use(passport.initialize());
 //routes
 const userRouter = require("./routes/user_api");
 const scoreRouter = require("./routes/score_api");
-app.options('*', corsMiddleware)
+app.options("*", corsMiddleware);
 app.use("/api/user", userRouter);
 app.use("/api/score", scoreRouter);
 
