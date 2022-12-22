@@ -21,7 +21,7 @@
     "express-async-wrap": "^1.0.0",
     "express-jwt": "^5.3.1",
     "http-status": "^1.2.0",
-    "jsonwebtoken": "^8.3.0",
+    "jsonwebtoken": "^9.0.0",
     "mongodb-memory-server": "^5.2.8",
     "mongoose": "^5.7.5",
     "mongoose-fixture-loader": "^1.0.2",
